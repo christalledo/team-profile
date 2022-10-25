@@ -1,39 +1,72 @@
+
+// Import all necessary files
+
 const Engineer = require("./lib/Engineer.js");
+const Manager = require("./lib/Manager.js");
+const Intern = require("./lib/Intern.js");
+const questions = require("./utils/questions.js");
 
-const questions = import("./utils/questions.cjs");
-console.log(questions);
-const inquirer = import("inquirer");
-const fs = import("fs");
+const generateTeamPage = require("./utils/template")
+const inquirer = require("inquirer");
+const fs = require("fs");
 const employees = [];
-// i'm thinking about async and await to integrate them in one js like first for employee and then engineer and so on an so forth, and also put some conditional statements.
 
-//  function to write README file
-// function writeToFile(generateMarkdown, response) {
-//     fs.writeToFile('index.html', "Here is our function working", (err) => err ? console.log(err, response) : console.log("Success"))
-// }
+// inquirer prompt function 
+
 async function promptMenu() {
   let questionBase = await questions("View Menu");
-  data = await inquirer(questionBase);
+  const data = await inquirer.prompt(questionBase);
+  console.log(data);
   switch (data.action) {
     case "Add Engineer":
-        let questionBase = await questions("Add Engineer")
-        let engineerData = await inquirer(questionBase)
-        const newEngineer = new Engineer()
-        employees.push(newEngineer)
-        promptMenu()
-        break;
-  
+      let questionBase = await questions("Add Engineer");
+      let engineerData = await inquirer.prompt(questionBase);
+      console.log(engineerData);
+      const newEngineer = new Engineer(
+        engineerData.name,
+        engineerData.id,
+        engineerData.email,
+        engineerData.github
+      );
+      console.log(newEngineer);
+      employees.push(newEngineer);
+      promptMenu();
+      break;
+
+    case "Add Intern":
+      let internQuestions = await questions("Add Intern");
+      let internData = await inquirer.prompt(internQuestions);
+      const newIntern = new Intern(
+        internData.name,
+        internData.id,
+        internData.email,
+        internData.school
+      );
+      console.log(newIntern);
+      employees.push(newIntern);
+      promptMenu();
+      break;
+
+
+
+
+
     default:
-        (await fs).writeFile('./index.html', generateTeamPage(employees), callback function)
-        break;
+      console.log(employees);
+      await fs.writeFile("./index.html", generateTeamPage(employees), (err) => {
+        if (err) console.log(err);
+        else {
+          console.log("File written successfully\n");
+        }
+      });
+      break;
   }
 }
 
 // function to initialize app
 async function init() {
   let questionBase = await questions("default");
-  data = await inquirer(questionBase);
-  console.log(data);
+  const data = await inquirer.prompt(questionBase);
   const newManager = new Manager(data.name, data.id, data.email);
   employees.push(newManager);
   promptMenu();
