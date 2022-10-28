@@ -26,6 +26,8 @@ This website is created to keep track of notes in which the user wants to rememb
 
 ## Usage
 
+<img src ="https://drive.google.com/file/d/1X0eyR5pDMNnFYqCkIWnbbPT10l1sBSwm/view">
+
 ## Credits
 
 This was coded by Christian Talledo.

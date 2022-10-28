@@ -73,7 +73,7 @@ function questions(condition) {
           // Manager github
           type: "input",
           message: "Please enter your manager office number",
-          name: "github",
+          name: "officeNumber",
         },
         {
           // Employee name
@@ -86,6 +86,11 @@ function questions(condition) {
           type: "input",
           message: "Please enter your employee id",
           name: "id",
+        },
+        {
+          type: "input",
+          message: "Please enter your manager's email",
+          name: "email",
         },
       ];
   }

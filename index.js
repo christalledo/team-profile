@@ -67,7 +67,7 @@ async function promptMenu() {
 async function init() {
   let questionBase = await questions("default");
   const data = await inquirer.prompt(questionBase);
-  const newManager = new Manager(data.name, data.id, data.email);
+  const newManager = new Manager(data.name, data.id, data.email, data.officeNumber);
   employees.push(newManager);
   promptMenu();
 }

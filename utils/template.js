@@ -1,6 +1,6 @@
 // HTML PAGE
 
-function generateTeamPage(employee) {
+function generateTeamPage(employees) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -19,17 +19,38 @@ function generateTeamPage(employee) {
     
     <body>
     
-        <div class="col-4 mt-4">
-            <div class="card h-100">
-                <div class="card-header">
-    
-                </div>
+${employees.map((employee) => {
+        return `
+        <div class="card" style="width: 18rem;">
+   <div class="card-header">
+    ${employee.name}
+   </div>
+   <ul class="list-group list-group-flush">
+     <li class="list-group-item">${employee.id}</li>
+     <li class="list-group-item">${employee.email}</li>
+    ${getFourthItem(employee)}
+   </ul>
+ </div>`
+    })
+        }
     </body>
     
     </html>    
     `
 
 }
+
+const getFourthItem = ((employee) => {
+    if (employee.getRole() === "Manager")
+        return `<li class="list-group-item">${employee.officeNumber}</li>`
+    else if (employee.getRole() === "Intern")
+        return `<li class="list-group-item">${employee.school}</li>`
+    else
+        return `<li class="list-group-item">${employee.github}</li>`
+}
+
+)
+
 
 module.exports = generateTeamPage;
 
